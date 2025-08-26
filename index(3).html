@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B3 Center - Portal Pengolahan Bahan Berbahaya dan Beracun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header-content h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: none;
+            padding: 15px 25px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .nav-tab:hover {
+            background: rgba(79, 172, 254, 0.1);
+            color: #4facfe;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #4facfe;
+        }
+
+        .card h3 {
+            color: #2980b9;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .card p, .card li {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .hazard-symbol {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #666;
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .alert h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .result {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .nav-tab {
+                margin: 5px;
+                padding: 10px 15px;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🧪 B3 Center</h1>
+                <p>Portal Pengolahan Bahan Berbahaya dan Beracun Indonesia</p>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Pengenalan B3</button>
+            <button class="nav-tab" data-tab="types">Jenis B3</button>
+            <button class="nav-tab" data-tab="processing">Pengolahan</button>
+            <button class="nav-tab" data-tab="safety">Keselamatan</button>
+            <button class="nav-tab" data-tab="regulations">Regulasi</button>
+        </nav>
+
+        <!-- Overview Section -->
+        <section id="overview" class="content-section active">
+            <h2>Pengenalan Bahan Berbahaya dan Beracun (B3)</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Definisi B3</h3>
+                    <p>Bahan Berbahaya dan Beracun (B3) adalah zat, energi, dan/atau komponen lain yang karena sifat, konsentrasi, dan/atau jumlahnya, baik secara langsung maupun tidak langsung, dapat mencemarkan dan/atau merusak lingkungan hidup, dan/atau membahayakan lingkungan hidup, kesehatan, serta kelangsungan hidup manusia dan makhluk hidup lain.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Karakteristik B3</h3>
+                    <ul>
+                        <li>Mudah terbakar (Flammable)</li>
+                        <li>Mudah meledak (Explosive)</li>
+                        <li>Bersifat korosif (Corrosive)</li>
+                        <li>Beracun (Toxic)</li>
+                        <li>Radioaktif (Radioactive)</li>
+                        <li>Berbahaya bagi lingkungan</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Sumber B3</h3>
+                    <ul>
+                        <li>Industri kimia dan petrokimia</li>
+                        <li>Rumah sakit dan laboratorium</li>
+                        <li>Industri tekstil dan farmasi</li>
+                        <li>Kegiatan pertambangan</li>
+                        <li>Rumah tangga (limbah elektronik, baterai)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert">
+                <h4>⚠️ PERINGATAN PENTING</h4>
+                <p>Penanganan B3 harus dilakukan oleh tenaga ahli yang terlatih dan menggunakan peralatan pelindung diri (APD) yang sesuai standar keselamatan.</p>
+            </div>
+        </section>
+
+        <!-- Types Section -->
+        <section id="types" class="content-section">
+            <h2>Klasifikasi Jenis B3</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="hazard-symbol">🔥</div>
+                    <h3>Mudah Terbakar</h3>
+                    <p>Bahan yang mudah terbakar pada suhu rendah atau dapat menyala sendiri di udara terbuka.</p>
+                    <ul>
+                        <li>Bensin, solar, alkohol</li>
+                        <li>Gas LPG, hidrogen</li>
+                        <li>Pelarut organik</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="hazard-symbol">💥</div>
+                    <h3>Mudah Meledak</h3>
+                    <p>Bahan yang dapat meledak karena gesekan, benturan, atau pemanasan.</p>
+                    <ul>
+                        <li>TNT, dinamit</li>
+                        <li>Amonium nitrat</li>
+                        <li>Kembang api</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="hazard-symbol">⚗️</div>
+                    <h3>Korosif</h3>
+                    <p>Bahan yang dapat merusak jaringan hidup dan material lainnya.</p>
+                    <ul>
+                        <li>Asam sulfat, asam klorida</li>
+                        <li>Natrium hidroksida</li>
+                        <li>Amoniak</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="hazard-symbol">☠️</div>
+                    <h3>Beracun</h3>
+                    <p>Bahan yang dapat menyebabkan keracunan, penyakit, atau kematian.</p>
+                    <ul>
+                        <li>Merkuri, timbal</li>
+                        <li>Sianida, arsen</li>
+                        <li>Pestisida</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="hazard-symbol">☢️</div>
+                    <h3>Radioaktif</h3>
+                    <p>Bahan yang memancarkan radiasi ionisasi yang berbahaya.</p>
+                    <ul>
+                        <li>Uranium, plutonium</li>
+                        <li>Cesium-137</li>
+                        <li>Limbah medis radioaktif</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="hazard-symbol">🌱</div>
+                    <h3>Berbahaya bagi Lingkungan</h3>
+                    <p>Bahan yang dapat merusak ekosistem dan lingkungan hidup.</p>
+                    <ul>
+                        <li>PCB (Polychlorinated Biphenyl)</li>
+                        <li>DDT</li>
+                        <li>Logam berat</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processing Section -->
+        <section id="processing" class="content-section">
+            <h2>Metode Pengolahan B3</h2>
+            
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Identifikasi dan Klasifikasi</h4>
+                    <p>Mengidentifikasi jenis B3, sifat fisik dan kimia, serta tingkat bahayanya untuk menentukan metode pengolahan yang tepat.</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Pengumpulan dan Penyimpanan</h4>
+                    <p>Mengumpulkan B3 dari sumber dan menyimpannya dalam wadah khusus yang aman dengan label yang jelas.</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Pengangkutan</h4>
+                    <p>Mengangkut B3 menggunakan kendaraan khusus dengan sistem keamanan yang memadai.</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Pengolahan/Pemusnahan</h4>
+                    <p>Melakukan pengolahan sesuai jenis B3: insinerasi, stabilisasi/solidifikasi, atau pengolahan biologis.</p>
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Pemantauan dan Evaluasi</h4>
+                    <p>Memantau hasil pengolahan dan evaluasi dampak lingkungan untuk memastikan keamanan.</p>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Metode Fisik</h3>
+                    <ul>
+                        <li>Solidifikasi/Stabilisasi</li>
+                        <li>Enkapsulasi</li>
+                        <li>Pemadatan</li>
+                        <li>Pemisahan fisik</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Metode Kimia</h3>
+                    <ul>
+                        <li>Netralisasi</li>
+                        <li>Presipitasi</li>
+                        <li>Oksidasi/Reduksi</li>
+                        <li>Pertukaran ion</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Metode Termal</h3>
+                    <ul>
+                        <li>Insinerasi</li>
+                        <li>Pirolisis</li>
+                        <li>Gasifikasi</li>
+                        <li>Desorpsi termal</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Metode Biologis</h3>
+                    <ul>
+                        <li>Bioremediasi</li>
+                        <li>Komposting</li>
+                        <li>Landfarming</li>
+                        <li>Bioslurry</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Section -->
+        <section id="safety" class="content-section">
+            <h2>Prosedur Keselamatan</h2>
+            
+            <div class="alert">
+                <h4>🚨 PROTOKOL DARURAT</h4>
+                <p>Dalam keadaan darurat, segera hubungi: Pemadam Kebakaran (113), Rumah Sakit (118), atau Polisi (110)</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Alat Pelindung Diri (APD)</h3>
+                    <ul>
+                        <li>Helm keselamatan</li>
+                        <li>Kacamata pelindung</li>
+                        <li>Masker respirator</li>
+                        <li>Sarung tangan kimia</li>
+                        <li>Sepatu keselamatan</li>
+                        <li>Pakaian pelindung</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Prosedur Penanganan</h3>
+                    <ul>
+                        <li>Selalu gunakan APD lengkap</li>
+                        <li>Hindari kontak langsung dengan B3</li>
+                        <li>Bekerja di area berventilasi baik</li>
+                        <li>Simpan B3 terpisah sesuai jenisnya</li>
+                        <li>Cuci tangan setelah menangani B3</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Penanganan Kebocoran</h3>
+                    <ul>
+                        <li>Evakuasi area terdampak</li>
+                        <li>Hentikan sumber kebocoran</li>
+                        <li>Serap dengan material absorben</li>
+                        <li>Netralkan jika memungkinkan</li>
+                        <li>Buang limbah sesuai prosedur</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Pertolongan Pertama</h3>
+                    <ul>
+                        <li>Kontak kulit: bilas dengan air mengalir</li>
+                        <li>Kontak mata: bilas dengan air 15 menit</li>
+                        <li>Terhirup: pindah ke udara segar</li>
+                        <li>Tertelan: jangan dimuntahkan</li>
+                        <li>Segera hubungi bantuan medis</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulations Section -->
+        <section id="regulations" class="content-section">
+            <h2>Peraturan dan Regulasi</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Peraturan Pemerintah</h3>
+                    <ul>
+                        <li>PP No. 101/2014 tentang Pengelolaan Limbah B3</li>
+                        <li>PP No. 22/2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup</li>
+                        <li>Permen LHK No. P.56/2015 tentang Tata Cara dan Persyaratan Teknis Pengelolaan Limbah B3</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Persyaratan Perizinan</h3>
+                    <ul>
+                        <li>Izin Penyimpanan Sementara Limbah B3</li>
+                        <li>Izin Pengumpulan Limbah B3</li>
+                        <li>Izin Pengangkutan Limbah B3</li>
+                        <li>Izin Pemanfaatan Limbah B3</li>
+                        <li>Izin Pengolahan dan Penimbunan Limbah B3</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Kewajiban Perusahaan</h3>
+                    <ul>
+                        <li>Memiliki izin pengelolaan limbah B3</li>
+                        <li>Melakukan minimisasi limbah B3</li>
+                        <li>Menyediakan fasilitas penyimpanan yang memadai</li>
+                        <li>Melaporkan pengelolaan limbah B3</li>
+                        <li>Menggunakan jasa pengelola limbah B3 berizin</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Sanksi Pelanggaran</h3>
+                    <ul>
+                        <li>Sanksi administratif: teguran tertulis, paksaan pemerintah</li>
+                        <li>Sanksi pidana: denda hingga Rp 15 miliar</li>
+                        <li>Pidana penjara: maksimal 15 tahun</li>
+                        <li>Pencabutan izin usaha</li>
+                        <li>Kewajiban pemulihan lingkungan</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>⚠️ Website ini dibuat untuk tujuan edukasi dan pembelajaran saja</p>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <h4 style="margin-bottom: 15px;">👥 Kelompok 3</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; text-align: center;">
+                    <p>• Ika</p>
+                    <p>• Rifat</p>
+                    <p>• Kalila Revina</p>
+                    <p>• Keysha Ratna</p>
+                    <p>• Kurniati</p>
+                    <p>• Laila</p>
+                    <p>• Rifky</p>
+                    <p>• Laella</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.content-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and sections
+                tabs.forEach(t => t.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding section
+                tab.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Smooth scrolling animation for process steps
+        const processSteps = document.querySelectorAll('.process-step');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        processSteps.forEach(step => {
+            step.style.opacity = '0';
+            step.style.transform = 'translateY(20px)';
+            step.style.transition = 'all 0.6s ease';
+            observer.observe(step);
+        });
+
+        // Add hover effects for cards
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // Add typing animation for hazard symbols
+        function animateHazardSymbols() {
+            const symbols = document.querySelectorAll('.hazard-symbol');
+            symbols.forEach((symbol, index) => {
+                setTimeout(() => {
+                    symbol.style.animation = 'pulse 2s infinite';
+                }, index * 200);
+            });
+        }
+
+        // Add pulse animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            setTimeout(animateHazardSymbols, 1000);
+        });
+
+        // Add search functionality
+        function addSearchFunctionality() {
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Cari informasi B3...';
+            searchInput.style.cssText = `
+                width: 100%;
+                max-width: 400px;
+                padding: 12px;
+                margin: 20px auto;
+                display: block;
+                border: 2px solid #ddd;
+                border-radius: 25px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            `;
+            
+            searchInput.addEventListener('focus', () => {
+                searchInput.style.borderColor = '#4facfe';
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                searchInput.style.borderColor = '#ddd';
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const allContent = document.querySelectorAll('.card, .process-step');
+                
+                allContent.forEach(element => {
+                    const text = element.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        element.style.display = 'block';
+                        element.style.opacity = '1';
+                    } else {
+                        element.style.opacity = searchTerm === '' ? '1' : '0.3';
+                    }
+                });
+            });
+            
+            document.querySelector('header').appendChild(searchInput);
+        }
+
+        // Initialize search functionality
+        addSearchFunctionality();
+    </script>
+</body>
+</html>
